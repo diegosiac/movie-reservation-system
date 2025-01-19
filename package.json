@@ -1,0 +1,31 @@
+{
+  "name": "movie-reservation-system",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"test:frontend": "npm --prefix frontend test",
+		"test:backend": "cd backend && go test ./...",
+		"test": "npm run test:frontend && npm run test:backend",
+		"prepare": "husky"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"frontend/**/*.{js,jsx,ts,tsx}": [
+			"prettier --write --config frontend/.prettierrc.js",
+			"frontend/node_modules/.bin/eslint --cache --fix --c frontend/eslint.config.mjs"
+		],
+		"backend/**/*.go": [
+			"golangci-lint run"
+		  ]
+	},
+	"devDependencies": {
+		"@commitlint/cli": "19.6.1",
+		"@commitlint/config-conventional": "19.6.0",
+		"husky": "9.1.7",
+		"lint-staged": "15.4.1"
+	}
+}
